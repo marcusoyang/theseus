@@ -1,12 +1,21 @@
-import { Provider } from 'mobx-react'
-import { useStore } from '../store'
+import { ChakraProvider } from '@chakra-ui/react';
+import ChessStore from '../mobx/ChessStore';
+import { observer } from 'mobx-react-lite';
+import { createContext, useContext } from 'react';
 
-export default function App({ Component, pageProps }) {
-  const store = useStore(pageProps.initialState)
+interface AppProps {
+    Component: React.ComponentType;
+    pageProps: any;
+}
 
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  )
+export const GameContext = createContext<ChessStore>(new ChessStore());
+
+export default function App({ Component, pageProps }: AppProps) {
+    return (
+        <GameContext.Provider value={new ChessStore()}>
+            <ChakraProvider>
+                <Component {...pageProps} />
+            </ChakraProvider>
+        </GameContext.Provider>
+    );
 }

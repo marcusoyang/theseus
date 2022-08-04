@@ -1,6 +1,10 @@
 # Sigmund - A chess engine for the web
 The final goal of this project is to be able to verse a performant chess engine in the browser. [Sigmund](https://github.com/marcusoyang/sigmund) will be written in c++ and will be served as a backend using [Boost.Beast](https://github.com/boostorg/beast) . The frontend will be using the [Next.js](https://nextjs.org/) framework with [MobX](https://mobx.js.org/) as a state library.
 
+## Requirements
+Sprint 1 - Ability to play online
+Sprint 2 - Ability to against Sigmund
+
 
 # MobX State Tree with TypeScript example
 
