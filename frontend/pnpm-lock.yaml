@@ -10,6 +10,7 @@ specifiers:
   '@types/chess.js': ^0.13.2
   '@types/node': ^18.6.3
   '@types/react': ^18.0.15
+  '@types/ws': ^8.5.3
   chess.js: ^0.13.4
   chessboardjsx: ^2.4.7
   framer-motion: ^6.5.1
@@ -17,16 +18,22 @@ specifiers:
   mobx-react: ^7.5.2
   mobx-react-lite: ^3.4.0
   mobx-state-tree: ^5.1.5
+  net: ^1.0.2
   next: latest
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-use-websocket: ^4.2.0
+  tls: ^0.0.1
   typescript: ^4.7.4
+  webpack-node-externals: ^3.0.0
+  ws: ^8.8.1
 
 dependencies:
   '@azure/web-pubsub': 1.0.0
   '@chakra-ui/react': 2.2.4_bdbj5fmnflsx5dx2nipfb2qkou
   '@emotion/react': 11.10.0_dekd3qhq25os2zmp2sxj6oaoou
   '@emotion/styled': 11.10.0_cvyjuqpqzsw2jroi6znapo3uiq
+  '@types/ws': 8.5.3
   chess.js: 0.13.4
   chessboardjsx: 2.4.7_biqbaboplfbrettd7655fr4n2y
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
@@ -34,10 +41,14 @@ dependencies:
   mobx-react: 7.5.2_m26jawr67gnusmh4egzqtnhxru
   mobx-react-lite: 3.4.0_m26jawr67gnusmh4egzqtnhxru
   mobx-state-tree: 5.1.5_mobx@6.6.1
+  net: 1.0.2
   next: 12.2.3_twoewwu6sg7cdf3ao6njtbftne
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-use-websocket: 4.2.0_biqbaboplfbrettd7655fr4n2y
+  tls: 0.0.1
   typescript: 4.7.4
+  ws: 8.8.1
 
 devDependencies:
   '@babel/core': 7.18.10
@@ -45,6 +56,7 @@ devDependencies:
   '@types/chess.js': 0.13.2
   '@types/node': 18.6.3
   '@types/react': 18.0.15
+  webpack-node-externals: 3.0.0
 
 packages:
 
@@ -1577,7 +1589,6 @@ packages:
 
   /@types/node/18.6.3:
     resolution: {integrity: sha512-6qKpDtoaYLM+5+AFChLhHermMQxc3TOEFIDzrZLPRGHPrLEwqFkkT5Kx3ju05g6X7uDPazz3jHbKPX0KzCjntg==}
-    dev: true
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -1595,6 +1606,12 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+
+  /@types/ws/8.5.3:
+    resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
+    dependencies:
+      '@types/node': 18.6.3
+    dev: false
 
   /@zag-js/focus-visible/0.1.0:
     resolution: {integrity: sha512-PeaBcTmdZWcFf7n1aM+oiOdZc+sy14qi0emPIeUuGMTjbP0xLGrZu43kdpHnWSXy7/r4Ubp/vlg50MCV8+9Isg==}
@@ -2131,6 +2148,10 @@ packages:
     hasBin: true
     dev: false
 
+  /net/1.0.2:
+    resolution: {integrity: sha512-kbhcj2SVVR4caaVnGLJKmlk2+f+oLkjqdKeQlmUtz6nGzOpbcobwVIeSURNgraV/v3tlmGIX82OcPCl0K6RbHQ==}
+    dev: false
+
   /next/12.2.3_twoewwu6sg7cdf3ao6njtbftne:
     resolution: {integrity: sha512-TA0tmSA6Dk6S6kfvCNbF7CWYW8468gZUxr/3/30z4KvAQbXnl2ASYZElVe7q/hBW/1F1ee0tSBlHa4/sn+ZIBw==}
     engines: {node: '>=12.22.0'}
@@ -2396,6 +2417,16 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /react-use-websocket/4.2.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-ZovaTlc/tWX6a590fi3kMWImhyoWj46BWJWvO5oucZJzRnVVhYtes2D9g+5MKXjSdR7Es3456hB89v4/1pcBKg==}
+    peerDependencies:
+      react: '>= 18.0.0'
+      react-dom: '>= 18.0.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -2516,6 +2547,10 @@ packages:
     resolution: {integrity: sha512-1Uhn/aqw5C6RI4KejVeTg6mIS7IqxnLJ8Mv2tV5rTc0qWobay7pDUz6Wi392Cnc8ak1H0F2cjoRzb2/AW4+Fvg==}
     dev: false
 
+  /tls/0.0.1:
+    resolution: {integrity: sha512-GzHpG+hwupY8VMR6rYsnAhTHqT/97zT45PG8WD5eTT1lq+dFE0nN+1PYpsoBcHJgSmTz5ceK2Cv88IkPmIPOtQ==}
+    dev: false
+
   /to-fast-properties/2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
@@ -2590,6 +2625,24 @@ packages:
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
+    dev: false
+
+  /webpack-node-externals/3.0.0:
+    resolution: {integrity: sha512-LnL6Z3GGDPht/AigwRh2dvL9PQPFQ8skEpVrWZXLWBYmqcaojHNN0onvHzie6rq7EWKrrBfPYqNEzTJgiwEQDQ==}
+    engines: {node: '>=6'}
+    dev: true
+
+  /ws/8.8.1:
+    resolution: {integrity: sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
     dev: false
 
   /yaml/1.10.2:

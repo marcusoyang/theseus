@@ -1,3 +1,4 @@
+import { AzureKeyCredential, WebPubSubServiceClient } from '@azure/web-pubsub';
 import { Box } from '@chakra-ui/react';
 import { Chess, Square, ChessInstance, Move } from 'chess.js';
 import Chessboard from 'chessboardjsx';
@@ -6,6 +7,7 @@ import { observer } from 'mobx-react';
 
 import React, { useContext, useEffect } from 'react';
 import { GameContext } from '../pages/_app';
+import { getClient } from './_utils';
 
 const Board = () => {
     let gameStore = useContext(GameContext);
@@ -13,7 +15,9 @@ const Board = () => {
     let [position, setPosition] = React.useState<string>(game.fen);
     gameStore.initializeSetPosition(setPosition);
 
-    const handleDrop = (props: {
+    const client = getClient();
+
+    const handleDrop = async (props: {
         sourceSquare: Square;
         targetSquare: Square;
         piece: Piece;
@@ -38,7 +42,30 @@ const Board = () => {
 
         game.move({ from: source, to: target });
         gameStore.updatePosition();
+
+        // Broadcast move to subscribers
+        await client.sendToAll(game.fen());
     };
+
+    useEffect(() => {
+        const client = getClient();
+        client
+            .getClientAccessToken()
+            .then((token) => {
+                const ws = new WebSocket(token.url);
+                ws.onopen = () => {
+                    console.log('WebSocket connected');
+                };
+                ws.onmessage = (event) => {
+                    let fen = event.data;
+                    console.log(fen);
+                    game.load(fen);
+                };
+            })
+            .catch((err) => {
+                console.log;
+            });
+    }, []);
 
     return <Chessboard position={position} onDrop={handleDrop} />;
 };
