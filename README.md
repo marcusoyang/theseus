@@ -1,12 +1,12 @@
-## Sigmund - A chess engine for the web
+# Sigmund - A chess engine for the web
 The final goal of this project is to be able to verse a performant chess engine in the browser. [Sigmund](https://github.com/marcusoyang/sigmund) will be written in c++ and will be served as a backend using [Boost.Beast](https://github.com/boostorg/beast) . The frontend will be using the [Next.js](https://nextjs.org/) framework with [MobX](https://mobx.js.org/) as a state library.
 
-# Requirements
+## Requirements
 Sprint 1 - Ability to play online (Complete)
 Sprint 2 - Ability to against Sigmund
 
 
-# MobX State Tree with TypeScript example
+## MobX State Tree with TypeScript example
 
 Usually splitting your app state into `pages` feels natural but sometimes you'll want to have global state for your app. This is an example on how you can use mobx that also works with our universal rendering approach.
 
@@ -18,7 +18,7 @@ The trick here for supporting universal mobx is to separate the cases for the cl
 
 The clock, under `components/Clock.js`, has access to the state using the `inject` and `observer` functions from `mobx-react`. In this case Clock is a direct child from the page but it could be deep down the render tree.
 
-# Tech Stack
+## Tech Stack
 - Next.JS
 - React
 - MobX State Library
