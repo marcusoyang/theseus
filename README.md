@@ -1,8 +1,8 @@
-# Sigmund - A chess engine for the web
+## Sigmund - A chess engine for the web
 The final goal of this project is to be able to verse a performant chess engine in the browser. [Sigmund](https://github.com/marcusoyang/sigmund) will be written in c++ and will be served as a backend using [Boost.Beast](https://github.com/boostorg/beast) . The frontend will be using the [Next.js](https://nextjs.org/) framework with [MobX](https://mobx.js.org/) as a state library.
 
-## Requirements
-Sprint 1 - Ability to play online
+# Requirements
+Sprint 1 - Ability to play online (Complete)
 Sprint 2 - Ability to against Sigmund
 
 
@@ -17,3 +17,11 @@ To illustrate SSG and SSR, go to `/ssg` and `/ssr`, those pages are using Next.j
 The trick here for supporting universal mobx is to separate the cases for the client and the server. When we are on the server we want to create a new store every time, otherwise different users data will be mixed up. If we are in the client we want to use always the same store. That's what we accomplish on `store.js`
 
 The clock, under `components/Clock.js`, has access to the state using the `inject` and `observer` functions from `mobx-react`. In this case Clock is a direct child from the page but it could be deep down the render tree.
+
+# Tech Stack
+- Next.JS
+- React
+- MobX State Library
+- Azure Web PubSub
+- Websocket
+- Chakra UI
