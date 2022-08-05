@@ -21,6 +21,7 @@ class ChessStore {
     };
 
     updatePosition = () => {
+        console.log('updating', this.game.fen());
         this.setPosition(this.game.fen());
     };
 

@@ -23,10 +23,10 @@ function Home() {
 
     let [currentPlayer, setCurrentPlayer] = useState(game.turn());
 
-    useEffect(() => {
-        setCurrentPlayer(game.turn());
-        console.log('object');
-    }, [gameStore.game]);
+    // useEffect(() => {
+    //     setCurrentPlayer(game.turn());
+    //     console.log('object');
+    // }, [gameStore.game]);
 
     return (
         <Container minW={'800px'}>

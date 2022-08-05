@@ -47,6 +47,11 @@ const Board = () => {
         await client.sendToAll(game.fen());
     };
 
+    const loadGame = (fen: string) => {
+        game.load(fen);
+        gameStore.updatePosition();
+    };
+
     useEffect(() => {
         const client = getClient();
         client
@@ -57,9 +62,13 @@ const Board = () => {
                     console.log('WebSocket connected');
                 };
                 ws.onmessage = (event) => {
-                    let fen = event.data;
-                    console.log(fen);
-                    game.load(fen);
+                    let fen: string = event.data;
+                    let parsedFen = fen.replace(/["']/g, '');
+                    if (game.validate_fen(parsedFen)) {
+                        loadGame(parsedFen);
+                    } else {
+                        console.log('invalid fen', parsedFen);
+                    }
                 };
             })
             .catch((err) => {
