@@ -32,6 +32,7 @@ const CreateGame = () => {
     );
     const router = useRouter();
 
+    console.log(process.env.BACKEND_URL);
     // create and join room in socket.io
     useEffect(() => {
         socket.emit('create', gameId);
