@@ -32,10 +32,15 @@ const styles = {
     },
 };
 
+const config = {
+    initialColorMode: 'dark',
+};
+
 const theme = extendTheme({
     breakpoints,
     colors,
     styles,
+    config,
 });
 
 export default theme;
