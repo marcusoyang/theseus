@@ -6,6 +6,5 @@ The final goal of this project is to be able to verse other people through share
 - React
 - Auth0
 - Socket.IO
-- Websockets
 - Chakra UI
 - Typescript

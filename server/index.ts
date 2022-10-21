@@ -54,6 +54,10 @@ io.on('connection', (socket) => {
         // socket.in(gameId).emit('color', 'black');
     });
 
+    socket.on('gameOver', (gameId) => {
+        socket.in(gameId).emit('gameOver', gameId);
+    });
+
     socket.on('move', (move) => {
         console.log('received move', move);
         socket.broadcast.emit('move', move);
