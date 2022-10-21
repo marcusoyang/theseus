@@ -39,10 +39,19 @@ io.on('connection', (socket) => {
     //     chess.move({ from: source, to: target });
     // });
 
+    socket.on('create', (gameId) => {
+        console.log('creating game', gameId);
+        socket.join(gameId);
+    });
+
     socket.on('join', (gameId) => {
         console.log('joining game', gameId);
         socket.join(gameId);
         socket.in(gameId).emit('startGame', gameId);
+
+        // allocate white and black
+        // socket.emit('color', 'white');
+        // socket.in(gameId).emit('color', 'black');
     });
 
     socket.on('move', (move) => {

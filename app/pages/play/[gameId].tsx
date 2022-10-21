@@ -25,15 +25,18 @@ const local = 'http://localhost:3000';
 let chess = new Chess();
 
 const PlayGame = () => {
-    // Socket Logic
     const { user, isLoading } = useUser();
     const [gameId, setGameId] = useState();
+    const [color, setColor] = useState();
+    const [playerTurn, setPlayerTurn] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
         if (!router.isReady) return;
         // @ts-ignore
         setGameId(router.query.gameId);
+        // @ts-ignore
+        setColor(router.query.c === 'w' ? 'white' : 'black');
     }, [router.isReady]);
 
     useEffect(() => {
@@ -44,6 +47,22 @@ const PlayGame = () => {
             console.log(move);
             chess.move(move);
             setFen(chess.fen());
+            setPlayerTurn(true);
+
+            // Game Over
+            if (chess.isGameOver()) {
+                if (chess.isCheckmate()) {
+                    alert('You lost!');
+                } else if (chess.isDraw()) {
+                    alert('Draw!');
+                } else if (chess.isStalemate()) {
+                    alert('Stalemate!');
+                } else if (chess.isThreefoldRepetition()) {
+                    alert('Threefold Repetition!');
+                } else if (chess.isInsufficientMaterial()) {
+                    alert('Insufficient Material!');
+                }
+            }
         });
     }, []);
 
@@ -52,7 +71,11 @@ const PlayGame = () => {
         socket.emit('join', gameId);
     }, [gameId]);
 
-    // Game Logic
+    useEffect(() => {
+        if (!color) return;
+        setPlayerTurn(color === 'white');
+    }, [color]);
+
     const [FEN, setFen] = useState<string>('start');
 
     const onDrop = (props: {
@@ -77,11 +100,20 @@ const PlayGame = () => {
         if (!move) return;
         chess.move(move.san);
         setFen(chess.fen());
+        setPlayerTurn(false);
 
         // send to server
         socket.emit('move', move);
-        console.log('emitting');
     };
+
+    // const allowDrag = (props: { piece: Piece }) => {
+    //     let pieceColor = props.piece['color'] === 'w' ? 'white' : 'black';
+    //     console.log(pieceColor);
+    //     console.log(color);
+    //     // return props.piece[0] == color;
+    //     console.log(pieceColor == color);
+    //     return true;
+    // };
 
     return (
         <Layout user={user} loading={isLoading}>
@@ -89,7 +121,13 @@ const PlayGame = () => {
                 <Heading size={'2xl'}>Chess</Heading>
             </Box>
             <Flex justifyContent={'center'}>
-                <ChessBoard position={FEN} onDrop={onDrop} />
+                <ChessBoard
+                    position={FEN}
+                    orientation={color}
+                    onDrop={onDrop}
+                    draggable={playerTurn}
+                    // allowDrag={allowDrag}
+                />
             </Flex>
         </Layout>
     );

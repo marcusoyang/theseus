@@ -1,3 +1,5 @@
+// This page is not required
+
 import { useUser } from '@auth0/nextjs-auth0';
 import { Box, Center, Flex, Heading } from '@chakra-ui/react';
 import Layout from '../components/layout';
@@ -49,6 +51,7 @@ const Play = () => {
         // });
 
         let possibleMoves = chess.moves({ verbose: true });
+        // @ts-ignore
         let move = possibleMoves.find((move: Move) => {
             return (
                 move.from === props.sourceSquare &&

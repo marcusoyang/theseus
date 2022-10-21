@@ -27,16 +27,16 @@ const local = 'http://localhost:3000';
 const CreateGame = () => {
     const { user, isLoading } = useUser();
     const [gameId, setGameId] = useState<string>(uuidv4());
-    const { hasCopied, onCopy } = useClipboard(`${local}/play/${gameId}`);
+    const { hasCopied, onCopy } = useClipboard(`${local}/play/${gameId}?c=w`);
     const router = useRouter();
 
     // create and join room in socket.io
     useEffect(() => {
-        socket.emit('join', gameId);
+        socket.emit('create', gameId);
         console.log(gameId);
         socket.on('startGame', (game) => {
             console.log('starting game');
-            router.push(`/play/${gameId}`);
+            router.push(`/play/${gameId}?c=b`);
         });
     }, []);
 
