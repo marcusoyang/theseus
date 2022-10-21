@@ -19,10 +19,9 @@ import dynamic from 'next/dynamic';
 
 const ChessBoard = dynamic(() => import('chessboardjsx'), { ssr: false });
 
-const URL = 'http://localhost:8080';
+const URL = process.env.BACKEND_URL || 'http://localhost:8080';
 const socket = io(URL);
 
-const local = 'http://localhost:3000';
 let chess = new Chess();
 
 const PlayGame = () => {

@@ -19,15 +19,17 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 
-const URL = 'http://localhost:8080';
+const URL = process.env.BACKEND_URL || 'http://localhost:8080';
 const socket = io(URL);
 
-const local = 'http://localhost:3000';
+const deployment_url = process.env.DEPLOYMENT_URL || 'http://localhost:3000';
 
 const CreateGame = () => {
     const { user, isLoading } = useUser();
     const [gameId, setGameId] = useState<string>(uuidv4());
-    const { hasCopied, onCopy } = useClipboard(`${local}/play/${gameId}?c=w`);
+    const { hasCopied, onCopy } = useClipboard(
+        `${deployment_url}/play/${gameId}?c=w`
+    );
     const router = useRouter();
 
     // create and join room in socket.io
