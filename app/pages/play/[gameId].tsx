@@ -3,6 +3,7 @@ import Layout from '../../components/layout';
 import {
     Box,
     Button,
+    Center,
     Flex,
     Heading,
     Text,
@@ -29,6 +30,7 @@ const PlayGame = () => {
     const [gameId, setGameId] = useState();
     const [color, setColor] = useState();
     const [playerTurn, setPlayerTurn] = useState(false);
+    const [gameOver, setGameOver] = useState('');
     const router = useRouter();
 
     useEffect(() => {
@@ -52,17 +54,21 @@ const PlayGame = () => {
             // Game Over
             if (chess.isGameOver()) {
                 if (chess.isCheckmate()) {
-                    alert('You lost!');
+                    setGameOver('Checkmate');
                 } else if (chess.isDraw()) {
-                    alert('Draw!');
+                    setGameOver('Draw');
                 } else if (chess.isStalemate()) {
-                    alert('Stalemate!');
+                    setGameOver('Stalemate');
                 } else if (chess.isThreefoldRepetition()) {
-                    alert('Threefold Repetition!');
+                    setGameOver('Threefold Repetition');
                 } else if (chess.isInsufficientMaterial()) {
-                    alert('Insufficient Material!');
+                    setGameOver('Insufficient Material');
                 }
+                socket.emit('gameOver', gameId);
             }
+        });
+        socket.on('gameOver', () => {
+            setGameOver('You won!');
         });
     }, []);
 
@@ -115,20 +121,37 @@ const PlayGame = () => {
     //     return true;
     // };
 
+    const endGame = () => {
+        setGameOver('Game ended manually.');
+        socket.emit('gameOver', gameId);
+    };
+
     return (
         <Layout user={user} loading={isLoading}>
-            <Box textAlign={'center'} m={12}>
+            {/* <Box textAlign={'center'} m={12}>
                 <Heading size={'2xl'}>Chess</Heading>
+            </Box> */}
+            <Box
+                textAlign={'center'}
+                w={'100%'}
+                mt={12}
+                display={gameOver != '' ? 'inline-block' : 'none'}
+            >
+                <Heading>Game Over!</Heading>
+                <Text>Reason: {gameOver}</Text>
             </Box>
-            <Flex justifyContent={'center'}>
+            <Flex mt={12} justifyContent={'center'}>
                 <ChessBoard
                     position={FEN}
                     orientation={color}
                     onDrop={onDrop}
-                    draggable={playerTurn}
+                    draggable={gameOver == '' && playerTurn}
                     // allowDrag={allowDrag}
                 />
             </Flex>
+            <Center>
+                <Button onClick={endGame}>end game</Button>
+            </Center>
         </Layout>
     );
 };
