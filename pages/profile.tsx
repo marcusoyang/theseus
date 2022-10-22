@@ -26,7 +26,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
                 </Center>
                 <Text mb={4}>Nickname: {user.nickname}</Text>
                 <Text mb={4}>Name: {user.name}</Text>
-                {user.sub}
+                {/* {user.sub} */}
             </Box>
         </Box>
     );

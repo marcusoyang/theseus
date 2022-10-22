@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import Head from 'next/head';
+import Footer from './footer';
 import Header from './header';
 
 type LayoutProps = {
@@ -22,6 +23,7 @@ const Layout = ({ user, loading = false, children }: LayoutProps) => {
                     {children}
                 </Box>
             </main>
+            <Footer />
         </>
     );
 };
