@@ -148,9 +148,9 @@ const PlayGame = () => {
                     // allowDrag={allowDrag}
                 />
             </Flex>
-            <Center>
+            {/* <Center>
                 <Button onClick={endGame}>end game</Button>
-            </Center>
+            </Center> */}
         </Layout>
     );
 };
